@@ -174,27 +174,30 @@ def get_deepgram_api_key():
 # Usage in your Streamlit app
 deepgram_api_key = get_deepgram_api_key()
 
-        if deepgram_api_key == "":
-            if "DEEPGRAM_API_KEY" in st.secrets:
-                deepgram_api_key = st.secrets["DEEPGRAM_API_KEY"]
-            elif "DEEPGRAM_API_KEY" in os.environ:
-                deepgram_api_key = os.getenv("DEEPGRAM_API_KEY")
+if deepgram_api_key == "":
+    if "DEEPGRAM_API_KEY" in st.secrets:
+        deepgram_api_key = st.secrets["DEEPGRAM_API_KEY"]
+    elif "DEEPGRAM_API_KEY" in os.environ:
+        deepgram_api_key = os.getenv("DEEPGRAM_API_KEY")
 
-        deepgram = Deepgram(deepgram_api_key)
+deepgram = Deepgram(deepgram_api_key)
 
-    # TODO: Add find&replace, keywords, sample rate
-    # TODO: Better handling of disabled features (don't turn on by default)
-    # FIXME: Handle case when language is changed after unsupported feature is selected
-    with st.expander("🦾 Features", expanded=True):
-        if channels := st.checkbox(
-            "Channels",
-            help="Specify the number of independent audio channels your submitted streaming audio contains",
-            value=audio_format == "Streaming",
-            disabled=audio_format != "Streaming",
-        ):
-            num_channels = st.number_input("Number of channels", min_value=1)
-        else:
-            num_channels = 1
+# TODO: Add find&replace, keywords, sample rate
+# TODO: Better handling of disabled features (don't turn on by default)
+# FIXME: Handle case when language is changed after unsupported feature is selected
+with st.expander("🦾 Features", expanded=True):
+    if channels := st.checkbox(
+        "Channels",
+        help="Specify the number of independent audio channels your submitted streaming audio contains",
+        value=audio_format == "Streaming",
+        disabled=audio_format != "Streaming",
+    ):
+        num_channels = st.number_input("Number of channels", min_value=1)
+    else:
+        num_channels = 1
+
+# ... rest of your code ...
+
 
         detect_topics = st.checkbox(
             "Topic Detection",
