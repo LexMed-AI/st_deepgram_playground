@@ -158,7 +158,21 @@ model = rcol.selectbox(
     options=list(MODELS.keys()),
     help="[Models overview](https://developers.deepgram.com/docs/models-overview)",
 )
-        )
+def get_deepgram_api_key():
+    api_key = st.text_input("🔐 Deepgram API Key", type="password", placeholder="Enter your Deepgram API key")
+    
+    if api_key:
+        return api_key
+    elif "DEEPGRAM_API_KEY" in st.secrets:
+        return st.secrets["DEEPGRAM_API_KEY"]
+    elif "DEEPGRAM_API_KEY" in os.environ:
+        return os.getenv("DEEPGRAM_API_KEY")
+    else:
+        st.error("Deepgram API Key is required. Please provide it via the input field, Streamlit secrets, or environment variables.")
+        raise ValueError("Deepgram API Key not found")
+
+# Usage in your Streamlit app
+deepgram_api_key = get_deepgram_api_key()
 
         if deepgram_api_key == "":
             if "DEEPGRAM_API_KEY" in st.secrets:
