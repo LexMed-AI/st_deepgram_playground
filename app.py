@@ -28,8 +28,6 @@ MODELS = {
 LANGUAGES = {
     "Automatic Language Detection": None,
     "English": "en",
-    "French": "fr",
-    "Hindi": "hi",
 }
 
 
@@ -160,19 +158,6 @@ model = rcol.selectbox(
     options=list(MODELS.keys()),
     help="[Models overview](https://developers.deepgram.com/docs/models-overview)",
 )
-
-with st.sidebar:
-    with st.expander("🛠️Setup", expanded=True):
-        st.info("🚀Sign up for a [Free API key](https://console.deepgram.com/signup)")
-
-        deepgram_api_key = st.text_input(
-            "🔐 Deepgram API Key",
-            type="password",
-            placeholder="Enter your Deepgram API key",
-            help="""
-            The [Deepgram API key](https://developers.deepgram.com/docs/authenticating) can also be passed through 
-            [Streamlit secrets](https://docs.streamlit.io/streamlit-community-cloud/deploy-your-app/secrets-management) or
-            the `DEEPGRAM_API_KEY` environment variable""",
         )
 
         if deepgram_api_key == "":
